@@ -32,7 +32,13 @@ function find_event_posts (int $numberposts = 8) {
 }
 
 // Make card
-function make_post_card (string $featured_image_url, string $title, DateTime $date, string $excerpt, string $post_url) {
+function make_post_card (
+  string $featured_image_url, 
+  string $title, 
+  DateTime $date, 
+  string $excerpt, 
+  string $post_url
+) {
   $rendered_date = $date->format('l, F j, Y') . ' at ' . $date->format('g:i a');
 
   return 
@@ -45,6 +51,37 @@ function make_post_card (string $featured_image_url, string $title, DateTime $da
       '<a href='$post_url'>Read more</a>
     </div>
   </div>";
+}
+
+// Create Splide carousel
+function create_splide_carousel (array $elements, string $carousel_id) {
+  $elements_as_list_items = "";
+
+  foreach ($elements as $element) {
+    $elements_as_list_items = $elements_as_list_items . 
+    "<li class='splide__slide'>$element</li>";
+  }
+  
+  $carousel =   
+  "<div class='splide' role='group' id='$carousel_id'>
+    <div class='splide__track'>
+      <ul class='splide__list'>
+        $elements_as_list_items
+      </ul>
+    </div>
+  </div>
+  <script>
+    var splide = new Splide('#$carousel_id', {
+      mediaQuery: 'min',
+      focus: 0,
+      omitEnd: true,
+      gap: '2rem',
+      fixedWidth: 'clamp(15ch, 80%, 35ch)',
+    });
+    splide.mount();
+  </script>";
+
+  return $carousel;
 }
 
 // Render cards at shortcode
