@@ -1,0 +1,40 @@
+:root {
+  --card-bg-color: hsl(193, 100%, 28%);
+  --card-text-color: hsl(0, 0%, 97%);
+  --link-color: hsl(270, 50%, 40%);
+  --link-hover-color: hsl(269, 53%, 47%);
+}
+
+.post-card {
+  color: var(--card-text-color);
+  background-color: var(--card-bg-color);
+  max-width: 300px;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.post-card__content {
+  padding: 0.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.post-card__datetime {
+  font-weight: 600;
+}
+
+.post-card__link {
+  display: block;
+  margin: auto;
+  color: var(--card-text-color);
+  background-color: var(--link-color);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  transition: background-color 250ms ease-in-out;
+}
+
+.post-card__link:hover {
+  background-color: var(--link-hover-color);
+}
