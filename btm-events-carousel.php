@@ -61,7 +61,7 @@ function make_post_card (
 
   return 
   "<div class='post-card'>
-    <img src='$featured_image_url' alt='The featured image for $title'>
+    <img src='$featured_image_url' alt='The featured image for $title' class='post-card__image'>
     <div class='post-card__content'>
       <h3 class='post-card__title'>$title</h3>
       <p class='post-card__datetime'>$rendered_date</p>
