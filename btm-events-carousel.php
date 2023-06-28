@@ -28,7 +28,12 @@ function find_event_posts (int $numberposts = 8) {
 
   $query = new WP_Query($query_params);
 
-  return $query->posts;
+  if ($query->have_posts()) {
+    return $query->posts;
+  }
+  else {
+    die('No posts in category');
+  }
 }
 
 // Make card
@@ -86,9 +91,28 @@ function create_splide_carousel (array $elements, string $carousel_id) {
 
 // Render cards at shortcode
 function create_events_carousel ($atts) {
-  $postData = get_post_meta($post_id = 166, $key = 'Event Date', $single = true);
+  $sc_atts = shortcode_atts([
+    'number_of_posts' => 8,
+    'carousel_id' => 'upcoming_events'
+  ], $atts);
 
-  return '<pre>' . $postData . '</pre>';
+  // Get all posts
+  $posts = find_event_posts($sc_atts['number_of_posts']);
+
+  // Make array of cards from post data
+  $post_cards = array();
+  foreach ($posts as $post){
+    $image_url = wp_get_attachment_image_src(get_post_thumbnail_id($post->id));
+    $permalink = get_permalink($post->ID);
+    $post_cards[] = make_post_card(
+      $image_url,
+      $post->post_title,
+      $post->event_date,
+      $post->excerpt,
+      $permalink
+    );
+  }
+
+  return create_splide_carousel($post_cards, $sc_atts['carousel_id']);
 }
-
 ?>
