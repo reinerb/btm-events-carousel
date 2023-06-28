@@ -65,8 +65,8 @@ function make_post_card (
     <div class='post-card__content'>
       <h3 class='post-card__title'>$title</h3>
       <p class='post-card__datetime'>$rendered_date</p>
-      '<p class='post-card__excerpt'>$excerpt</p>
-      '<a href='$post_url'>Read more</a>
+      <p class='post-card__excerpt'>$excerpt</p>
+      <a href='$post_url'>Read more</a>
     </div>
   </div>";
 }
