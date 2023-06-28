@@ -10,11 +10,11 @@ Author URI:   https://github.com/reinerb/
 add_shortcode('eventscarousel', 'create_events_carousel');
 
 // Query posts
-function find_event_posts (int|string $category, int $numberposts = 8) {
+function find_event_posts (int $numberposts = 8) {
   $now = date('Y-m-d H:i:s');
 
   $query_params =  [
-    'category' => $category,
+    'category' => 'Upcoming Events',
     'numberposts' => $numberposts,
     'order' => 'DESC',
     'orderby' => 'meta_value',
