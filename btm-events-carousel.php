@@ -13,18 +13,22 @@ add_shortcode('eventscarousel', 'create_events_carousel');
 function find_event_posts (int|string $category, int $numberposts = 8) {
   $now = date('Y-m-d H:i:s');
 
-  return get_posts([
+  $query_params =  [
     'category' => $category,
     'numberposts' => $numberposts,
     'order' => 'DESC',
     'orderby' => 'meta_value',
     'meta_query' => [[
-      'key' => 'Event Date',
+      'key' => 'event_date',
       'value' => $now,
       'type' => 'DATETIME',
       'compare' => '>='
     ]]
-  ]);
+  ];
+
+  $query = new WP_Query($query_params);
+
+  return $query->posts;
 }
 
 // Make card
