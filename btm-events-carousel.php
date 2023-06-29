@@ -9,12 +9,11 @@ Author URI:   https://github.com/reinerb/
 
 // Add stylesheets and scripts
 function enqueue_events_carousel_scripts () {
-  print(plugins_url('/styles/post-card.css', __FILE__));
-  wp_register_style('btm_post_card_display', plugin_dir_url(__FILE__) . 'styles/post-card.css');
-  wp_enqueue_style('btm_post_card_display');
-  //wp_enqueue_style('events_splide_main', plugins_url('/styles/splide.min.css', __FILE__));
-  //wp_enqueue_style('events_splide_mods', plugins_url('/styles/splide-mods.css', __FILE__));
-  //wp_enqueue_script('splide_script', plugins_url('/scripts/splide.min.js', __FILE__));
+  print(plugins_url('/css/post-card.css', __FILE__));
+  wp_enqueue_style('btm_post_card_display', plugin_dir_url(__FILE__) . 'css/post-card.css');
+  //wp_enqueue_style('events_splide_main', plugins_url('/css/splide.min.css', __FILE__));
+  //wp_enqueue_style('events_splide_mods', plugins_url('/css/splide-mods.css', __FILE__));
+  //wp_enqueue_script('splide_script', plugins_url('/js/splide.min.js', __FILE__));
 }
 add_action('wp_enqueue_scripts', 'enqueue_events_carousel_scripts');
 
