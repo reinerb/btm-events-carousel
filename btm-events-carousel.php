@@ -8,12 +8,12 @@ Author URI:   https://github.com/reinerb/
 */
 
 // Add stylesheets and scripts
-function add_events_carousel_stylesheets () {
+function enqueue_events_carousel_stylesheets () {
   //wp_enqueue_style('splide_main', plugins_url('/styles/splide.min.css', __FILE__));
   //wp_enqueue_style('splide_mods', plugins_url('/styles/splide-mods.css', __FILE__));
   wp_enqueue_style('post_cards', plugins_url('/styles/post-card.css', __FILE__));
 }
-add_action('wp_enqueue_scripts', 'add_events_carousel_stylesheets');
+add_action('admin_print_styles', 'enqueue_events_carousel_stylesheets');
 
 function add_events_carousel_scripts () {
   wp_enqueue_script('splide_script', plugins_url('/scripts/splide.min.js', __FILE__));
