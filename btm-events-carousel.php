@@ -63,6 +63,7 @@ function make_post_card (
   "<div class='post-card'>
     <img src='$featured_image_url' alt='The featured image for $title' class='post-card__image'>
     <pre>$featured_image_url</pre>
+    <pre>$excerpt</pre>
     <div class='post-card__content'>
       <h3 class='post-card__title'>$title</h3>
       <p class='post-card__datetime'>$rendered_date</p>
@@ -116,11 +117,13 @@ function create_events_carousel ($atts) {
   // Make array of cards from post data
   $post_cards = array();
   foreach ($posts as $post){
+    $thumbnail_id = get_post_thumbnail_id($post->id);
     $image_url = wp_get_attachment_image_src(get_post_thumbnail_id($post->id));
     $permalink = get_permalink($post->ID);
     $event_date = get_post_meta($post->ID, 'event_date', true);
     
-    $post_cards[] = make_post_card(
+    $post_cards[] = "<pre>$thumbnail_id</pre>" .
+    make_post_card(
       $image_url,
       $post->post_title,
       new DateTime($event_date),
