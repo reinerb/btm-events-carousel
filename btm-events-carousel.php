@@ -9,6 +9,7 @@ Author URI:   https://github.com/reinerb/
 
 // Add stylesheets and scripts
 function enqueue_events_carousel_scripts () {
+  echo 'Hi this is a test';
   wp_enqueue_style('btm_post_card_display', plugin_dir_url(__FILE__) . 'styles/post-card.css');
   //wp_enqueue_style('events_splide_main', plugins_url('/styles/splide.min.css', __FILE__));
   //wp_enqueue_style('events_splide_mods', plugins_url('/styles/splide-mods.css', __FILE__));
