@@ -121,7 +121,7 @@ function create_events_carousel ($atts) {
     $permalink = get_permalink($post->ID);
     $event_date = get_post_meta($post->ID, 'event_date', true);
     
-    $post_cards[] = "<pre>$image_url</pre>"
+    $post_cards[] = "<pre>$image_url</pre>";
     /*
     make_post_card(
       $image_url,
