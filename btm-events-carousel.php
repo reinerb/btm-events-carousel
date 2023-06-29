@@ -51,7 +51,7 @@ function find_event_posts (int $numberposts = 8) {
 
 // Make card
 function make_post_card (
-  string $featured_image_url, 
+  string $image_tag, 
   string $title, 
   DateTime $date, 
   string $excerpt, 
@@ -61,9 +61,7 @@ function make_post_card (
 
   return 
   "<div class='post-card'>
-    <img src='$featured_image_url' alt='The featured image for $title' class='post-card__image'>
-    <pre>$featured_image_url</pre>
-    <pre>$excerpt</pre>
+    $image_tag
     <div class='post-card__content'>
       <h3 class='post-card__title'>$title</h3>
       <p class='post-card__datetime'>$rendered_date</p>
@@ -117,20 +115,19 @@ function create_events_carousel ($atts) {
   // Make array of cards from post data
   $post_cards = array();
   foreach ($posts as $post){
-    $image_url = get_the_post_thumbnail($post, 'full');
+    $title = $post->post_title;
+    $image_tag = get_the_post_thumbnail($post, 'full', ['class' => '.post-card__image', 'alt' => "The featured image for $title."]);
     $permalink = get_permalink($post->ID);
     $event_date = get_post_meta($post->ID, 'event_date', true);
     
-    $post_cards[] = "<pre>$image_url</pre>";
-    /*
+    $post_cards[] = 
     make_post_card(
-      $image_url,
-      $post->post_title,
+      $image_tag,
+      $title,
       new DateTime($event_date),
       $post->excerpt,
       $permalink
-    );
-    */
+    ); 
   }
 
   return create_splide_carousel($post_cards, $sc_atts['carousel_id']);
