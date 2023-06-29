@@ -119,13 +119,14 @@ function create_events_carousel ($atts) {
     $image_tag = get_the_post_thumbnail($post, 'full', ['class' => '.post-card__image', 'alt' => "The featured image for $title."]);
     $permalink = get_permalink($post->ID);
     $event_date = get_post_meta($post->ID, 'event_date', true);
+    $excerpt = get_the_excerpt($post);
     
     $post_cards[] = 
     make_post_card(
       $image_tag,
       $title,
       new DateTime($event_date),
-      $post->excerpt,
+      $excerpt,
       $permalink
     ); 
   }
