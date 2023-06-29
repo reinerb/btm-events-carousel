@@ -117,12 +117,11 @@ function create_events_carousel ($atts) {
   // Make array of cards from post data
   $post_cards = array();
   foreach ($posts as $post){
-    $thumbnail_id = wp_get_attachment_thumb_url($post->id);
-    $image_url = wp_get_attachment_image_src(get_post_thumbnail_id($post->id));
+    $image_url = wp_get_attachment_thumb_url($post->id);
     $permalink = get_permalink($post->ID);
     $event_date = get_post_meta($post->ID, 'event_date', true);
     
-    $post_cards[] = "<pre>$thumbnail_id</pre>" .
+    $post_cards[] = 
     make_post_card(
       $image_url,
       $post->post_title,
