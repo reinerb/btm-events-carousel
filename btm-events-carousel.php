@@ -16,9 +16,9 @@ function add_events_carousel_stylesheets () {
 add_action('wp_enqueue_scripts', 'add_events_carousel_stylesheets');
 
 function add_events_carousel_scripts () {
-  wp_enqueue_script('splide_script', plugins_url('/scripts/splide.min.js'));
+  wp_enqueue_script('splide_script', plugins_url('/scripts/splide.min.js', __FILE__));
 }
-add_action('wp_enqueue_scripts', 'add_events_carousel_scripts');
+// add_action('wp_enqueue_scripts', 'add_events_carousel_scripts');
 
 add_shortcode('eventscarousel', 'create_events_carousel');
 
