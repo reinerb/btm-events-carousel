@@ -20,6 +20,11 @@
   gap: 0.5rem;
 }
 
+.post-card__content > * {
+  margin: 0;
+  padding: 0;
+}
+
 .post-card__title {
   color: var(--card-text-color) !important;
 }
