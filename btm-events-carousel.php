@@ -2,13 +2,13 @@
 /*
 Plugin Name:  BTM Events Carousel
 Description:  A carousel to display upcoming events at BTM.
-Version:      0.7
+Version:      0.8
 Author:       Benjamin Reiner
 Author URI:   https://github.com/reinerb/
 */
 
 // GitHub updater
-include_once('/scripts/updater.php');
+include_once('updater.php');
 
 if (is_admin()) {
   $config = array(
