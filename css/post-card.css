@@ -20,6 +20,10 @@
   gap: 0.5rem;
 }
 
+.post-card__title {
+  color: var(--card-text-color);
+}
+
 .post-card__datetime {
   font-weight: 600;
 }
