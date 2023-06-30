@@ -8,7 +8,7 @@ Author URI:   https://github.com/reinerb/
 */
 
 // GitHub updater
-include_once('./scripts/updater.php');
+include_once('/scripts/updater.php');
 
 if (is_admin()) {
   $config = array(
