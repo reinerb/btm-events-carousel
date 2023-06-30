@@ -8,24 +8,24 @@ Author URI:   https://github.com/reinerb/
 */
 
 // GitHub updater
-include_once('updater.php');
+// include_once('updater.php');
 
-if (is_admin()) {
-  $config = array(
-			'slug' => plugin_basename(__FILE__),
-			'proper_folder_name' => 'btm-events-carousel',
-			'api_url' => 'https://api.github.com/repos/reinerb/btm-events-carousel',
-			'raw_url' => 'https://github.com/reinerb/btm-events-carousel/raw/main/',
-			'github_url' => 'https://github.com/reinerb/btm-events-carousel',
-			'zip_url' => 'https://github.com/reinerb/btm-events-carousel/zipball/main',
-			'sslverify' => false,
-			'requires' => '6.0',
-			'tested' => '6.2.2',
-			'readme' => 'README.md',
-		);
+// if (is_admin()) {
+//   $config = array(
+// 			'slug' => plugin_basename(__FILE__),
+// 			'proper_folder_name' => 'btm-events-carousel',
+// 			'api_url' => 'https://api.github.com/repos/reinerb/btm-events-carousel',
+// 			'raw_url' => 'https://github.com/reinerb/btm-events-carousel/raw/main/',
+// 			'github_url' => 'https://github.com/reinerb/btm-events-carousel',
+// 			'zip_url' => 'https://github.com/reinerb/btm-events-carousel/zipball/main',
+// 			'sslverify' => false,
+// 			'requires' => '6.0',
+// 			'tested' => '6.2.2',
+// 			'readme' => 'README.md',
+// 		);
 
-  new WP_GitHub_Updater($config);
-}
+//   new WP_GitHub_Updater($config);
+// }
 
 // Add stylesheets and scripts
 function enqueue_events_carousel_scripts () {
