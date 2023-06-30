@@ -21,7 +21,7 @@
 }
 
 .post-card__title {
-  color: var(--card-text-color);
+  color: var(--card-text-color) !important;
 }
 
 .post-card__datetime {
