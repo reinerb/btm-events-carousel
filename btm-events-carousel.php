@@ -30,9 +30,9 @@ if (is_admin()) {
 // Add stylesheets and scripts
 function enqueue_events_carousel_scripts () {
   wp_enqueue_style('btm_post_card_display', plugins_url('/css/post-card.css', __FILE__));
+  wp_enqueue_script('splide_script', plugins_url('/js/splide.min.js', __FILE__));
   wp_enqueue_style('events_splide_main', plugins_url('/css/splide.min.css', __FILE__));
   wp_enqueue_style('events_splide_mods', plugins_url('/css/splide-mods.css', __FILE__));
-  wp_enqueue_script('splide_script', plugins_url('/js/splide.min.js', __FILE__));
 }
 add_action('wp_enqueue_scripts', 'enqueue_events_carousel_scripts');
 
