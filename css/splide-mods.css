@@ -9,3 +9,7 @@
 .splide__track {
   margin-inline: 4rem;
 }
+
+.splide__pagination {
+  bottom: -2.5rem;
+}
