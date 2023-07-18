@@ -109,8 +109,20 @@ function create_splide_carousel (array $elements, string $carousel_id) {
       mediaQuery: 'min',
       focus: 0,
       omitEnd: true,
-      gap: '2rem',
-      fixedWidth: 'clamp(15ch, 80%, 35ch)',
+      perPage: 1,
+      breakpoints: {
+        1200: {
+          perPage: 4,
+        },
+        1000: {
+          perPage: 3,
+          gap: '2rem',
+        },
+        650: {
+          perPage: 2,
+          gap: '1rem'
+        }
+      }
     });
     splide.mount();
   </script>";
