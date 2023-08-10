@@ -73,14 +73,18 @@ function make_post_card (
   string $excerpt, 
   string $post_url
 ) {
-  $rendered_date = $date->format('l, F j, Y') . ' at ' . $date->format('g:i a');
+  $rendered_date = $date->format('l, F j, Y');
+  $rendered_time = $date->format('g:i a');
 
   return 
   "<div class='post-card'>
     $image_tag
     <div class='post-card__content'>
       <h3 class='post-card__title'>$title</h3>
-      <p class='post-card__datetime'>$rendered_date</p>
+      <div class='post-card__datetime'>
+        <p>$rendered_date</p>
+        <p>$rendered_time</p>
+      </div>
       <p class='post-card__excerpt'>$excerpt</p>
       <a class='post-card__link' href='$post_url'>Read more</a>
     </div>
@@ -111,14 +115,14 @@ function create_splide_carousel (array $elements, string $carousel_id) {
       omitEnd: true,
       perPage: 1,
       breakpoints: {
-        1200: {
+        1500: {
           perPage: 4,
         },
-        1000: {
+        1200: {
           perPage: 3,
           gap: '2rem',
         },
-        650: {
+        800: {
           perPage: 2,
           gap: '1rem'
         }
@@ -143,11 +147,20 @@ function create_events_carousel ($atts) {
   // Make array of cards from post data
   $post_cards = array();
   foreach ($posts as $post){
-    $title = $post->post_title;
+    if (strlen($post->post_title) <= 30) {
+      $title = $post->post_title;
+    } else {
+      $title = substr($post->post_title, 0, 27) . '...';
+    };
     $image_tag = get_the_post_thumbnail($post, 'full', ['class' => '.post-card__image', 'alt' => "The featured image for $title."]);
     $permalink = get_permalink($post->ID);
     $event_date = get_post_meta($post->ID, 'event_date', true);
-    $excerpt = get_the_excerpt($post);
+    $rawExcerpt = get_the_excerpt($post);
+    if (strlen($rawExcerpt) <= 60) {
+      $excerpt = $rawExcerpt;
+    } else {
+      $excerpt = substr($rawExcerpt, 0, 57) . '...';
+    }
     
     $post_cards[] = 
     make_post_card(
