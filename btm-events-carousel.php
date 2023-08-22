@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name:  BTM Events Carousel
+Plugin Name:  BTM Post Display
 Description:  A carousel to display upcoming events at BTM.
 Version:      1.0
 Author:       Benjamin Reiner
@@ -27,7 +27,7 @@ if (is_admin()) {
   new WP_GitHub_Updater($config);
 }
 
-// Add stylesheets and scripts
+// Add stylesheets, scripts, shortcodes
 function enqueue_events_carousel_scripts () {
   wp_enqueue_style('btm_post_card_display', plugins_url('/css/post-card.css', __FILE__));
   wp_enqueue_script('splide_script', plugins_url('/js/splide.min.js', __FILE__));
@@ -37,6 +37,7 @@ function enqueue_events_carousel_scripts () {
 add_action('wp_enqueue_scripts', 'enqueue_events_carousel_scripts');
 
 add_shortcode('eventscarousel', 'create_events_carousel');
+add_shortcode('newscards', 'create_news_cards');
 
 // Query upcoming events posts
 function find_event_posts (int $numberposts = 8) {
@@ -85,8 +86,8 @@ function find_news_posts (int $numberposts = 4) {
   }
 }
 
-// Make card
-function make_post_card (
+// Make card for an event post
+function make_events_post_card (
   string $image_tag, 
   string $title, 
   DateTime $date, 
@@ -107,6 +108,22 @@ function make_post_card (
       </div>
       <p class='post-card__excerpt'>$excerpt</p>
       <a class='post-card__link' href='$post_url'>Read more</a>
+    </div>
+  </div>";
+}
+
+// Make card for a news post
+function make_news_post_card (
+  string $image_tag,
+  string $title,
+  string $post_url
+) {
+  return 
+  "<div class='post-card'>
+    $image_tag
+    <div class='post-card__content'>
+      <h3 class='post-card__title'>$title</h3>
+      <a class post-card__link' href='$post_url'>Read more</a>
     </div>
   </div>";
 }
@@ -154,7 +171,24 @@ function create_splide_carousel (array $elements, string $carousel_id) {
   return $carousel;
 }
 
-// Render cards at shortcode
+// Create the current news display
+function create_news_display(array $elements) {
+  function append_all ($carry, $item) {
+    $carry = $carry . $item;
+    return $carry;
+  }
+
+  $elements_as_string = array_reduce($elements, 'append_all', '');
+
+  $news_display = 
+  "<div class='news-posts'>
+    $elements_as_string
+  </div>";
+
+  return $news_display;
+}
+
+// Render events carousel at [eventscarousel] shortcode
 function create_events_carousel ($atts) {
   $sc_atts = shortcode_atts([
     'number_of_posts' => 8,
@@ -183,7 +217,7 @@ function create_events_carousel ($atts) {
     }
     
     $post_cards[] = 
-    make_post_card(
+    make_events_post_card(
       $image_tag,
       $title,
       new DateTime($event_date),
@@ -193,5 +227,31 @@ function create_events_carousel ($atts) {
   }
 
   return create_splide_carousel($post_cards, $sc_atts['carousel_id']);
+}
+
+// Render news cards at [newscards] shortcode
+function create_news_cards($atts) {
+  $sc_atts = shortcode_atts([
+    'number_of_posts' => 4,
+  ], $atts);
+
+  // Find relevant posts
+  $posts = find_news_posts($sc_atts['number_of_posts']);
+
+  // Create an array of post cards
+  $post_cards = array();
+  foreach($posts as $post) {
+    if (strlen($post->title) <= 30) {
+      $title = $post -> title;
+    } else {
+      $title = substr($post->post_title, 0, 27) . '...';
+    }
+    $image_tag = get_the_post_thumbnail($post, 'full', ['class' => '.post-card__image', 'alt' => "The featured image for $title."]);
+    $permalink = get_permalink($post->ID);
+
+    $post_cards[] = make_news_post_card($image_tag, $title, $permalink);
+  }
+
+  return create_news_display($post_cards);
 }
 ?>
