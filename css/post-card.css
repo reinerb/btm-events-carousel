@@ -5,6 +5,13 @@
   --link-hover-color: hsl(269, 53%, 47%);
 }
 
+.news-posts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+}
+
 .post-card {
   color: var(--card-text-color);
   background-color: var(--card-bg-color);
