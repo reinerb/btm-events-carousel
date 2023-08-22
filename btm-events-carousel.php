@@ -42,7 +42,7 @@ add_shortcode('eventscarousel', 'create_events_carousel');
 function find_event_posts (int $numberposts = 8) {
   $now = date('Y-m-d H:i:s');
 
-  $query_params =  [
+  $query_params = [
     'category' => 'Upcoming Events',
     'numberposts' => $numberposts,
     'order' => 'ASC',
@@ -61,6 +61,25 @@ function find_event_posts (int $numberposts = 8) {
     return $query->posts;
   }
   else {
+    die('No posts in category');
+  }
+}
+
+function find_news_posts (int $numberposts = 4) {
+  $now = date('Y-m-d H:i:s');
+
+  $query_params = [
+    'category' => 'BTM News',
+    'numberposts' => $numberposts,
+    'order' => 'ASC',
+    'orderby' => 'date',
+  ];
+
+  $query = new WP_Query($query_params);
+
+  if ($query->have_posts()) {
+    return $query->posts;
+  } else {
     die('No posts in category');
   }
 }
