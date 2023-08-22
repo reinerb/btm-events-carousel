@@ -38,7 +38,7 @@ add_action('wp_enqueue_scripts', 'enqueue_events_carousel_scripts');
 
 add_shortcode('eventscarousel', 'create_events_carousel');
 
-// Query posts
+// Query upcoming events posts
 function find_event_posts (int $numberposts = 8) {
   $now = date('Y-m-d H:i:s');
 
@@ -65,6 +65,7 @@ function find_event_posts (int $numberposts = 8) {
   }
 }
 
+// Query BTM News posts
 function find_news_posts (int $numberposts = 4) {
   $now = date('Y-m-d H:i:s');
 
