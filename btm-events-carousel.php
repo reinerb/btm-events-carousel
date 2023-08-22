@@ -44,7 +44,7 @@ function find_event_posts (int $numberposts = 8) {
   $now = date('Y-m-d H:i:s');
 
   $query_params = [
-    'category' => 'Upcoming Events',
+    'category_name' => 'events',
     'numberposts' => $numberposts,
     'order' => 'ASC',
     'orderby' => 'meta_value',
@@ -62,7 +62,7 @@ function find_event_posts (int $numberposts = 8) {
     return $query->posts;
   }
   else {
-    die('No posts in category');
+    throw new Exception('No posts in ' . $query_params['category']);
   }
 }
 
@@ -71,7 +71,7 @@ function find_news_posts (int $numberposts = 4) {
   $now = date('Y-m-d H:i:s');
 
   $query_params = [
-    'category' => 'BTM News',
+    'category_name' => 'news',
     'numberposts' => $numberposts,
     'order' => 'ASC',
     'orderby' => 'date',
@@ -82,7 +82,7 @@ function find_news_posts (int $numberposts = 4) {
   if ($query->have_posts()) {
     return $query->posts;
   } else {
-    die('No posts in category');
+    throw new Exception('No posts in ' . $query_params['category']);
   }
 }
 
@@ -196,7 +196,11 @@ function create_events_carousel ($atts) {
   ], $atts);
 
   // Get all posts
-  $posts = find_event_posts($sc_atts['number_of_posts']);
+  try {
+    $posts = find_event_posts($sc_atts['number_of_posts']);
+  } catch (Exception $e) {
+    return "<p>Sorry, we don't have any upcoming events to list right now. Check back later.</p>";
+  }
 
   // Make array of cards from post data
   $post_cards = array();
@@ -236,15 +240,19 @@ function create_news_cards($atts) {
   ], $atts);
 
   // Find relevant posts
-  $posts = find_news_posts($sc_atts['number_of_posts']);
+  try {
+    $posts = find_news_posts($sc_atts['number_of_posts']);
+  } catch (Exception $e) {
+    return "<p>Sorry, we don't have any news items to list right now. Check back later.</p>";
+  }
 
   // Create an array of post cards
   $post_cards = array();
   foreach($posts as $post) {
-    if (strlen($post->post_title) <= 30) {
+    if (strlen($post->post_title) <= 35) {
       $title = $post->post_title;
     } else {
-      $title = substr($post->post_title, 0, 27) . '...';
+      $title = substr($post->post_title, 0, 35) . '...';
     };
     $image_tag = get_the_post_thumbnail($post, 'full', ['class' => '.post-card__image', 'alt' => "The featured image for $title."]);
     $permalink = get_permalink($post->ID);
