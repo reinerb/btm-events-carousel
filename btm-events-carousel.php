@@ -123,7 +123,7 @@ function make_news_post_card (
     $image_tag
     <div class='post-card__content'>
       <h3 class='post-card__title'>$title</h3>
-      <a class post-card__link' href='$post_url'>Read more</a>
+      <a class='post-card__link' href='$post_url'>Read more</a>
     </div>
   </div>";
 }
@@ -241,11 +241,11 @@ function create_news_cards($atts) {
   // Create an array of post cards
   $post_cards = array();
   foreach($posts as $post) {
-    if (strlen($post->title) <= 30) {
-      $title = $post -> title;
+    if (strlen($post->post_title) <= 30) {
+      $title = $post->post_title;
     } else {
       $title = substr($post->post_title, 0, 27) . '...';
-    }
+    };
     $image_tag = get_the_post_thumbnail($post, 'full', ['class' => '.post-card__image', 'alt' => "The featured image for $title."]);
     $permalink = get_permalink($post->ID);
 
