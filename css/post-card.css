@@ -25,11 +25,18 @@
   padding: 0;
 }
 
+.post-card > img {
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  width: 100%;
+}
+
 .post-card__title {
   color: var(--card-text-color) !important;
 }
 
-.post-card__datetime {
+.post-card__datetime > p {
+  padding-bottom: 0;
   font-weight: 600;
 }
 
