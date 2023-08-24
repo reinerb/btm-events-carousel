@@ -40,8 +40,8 @@ add_shortcode('eventscarousel', 'create_events_carousel');
 add_shortcode('newscards', 'create_news_cards');
 
 // Query upcoming events posts
-function find_event_posts (int $numberposts = 8) {
-  $now = date('Y-m-d H:i:s');
+function find_event_posts (int $numberposts = 8, string $timezone = 'America/New_York') {
+  $now = new DateTime('now', new DateTimeZone($timezone));
 
   $query_params = [
     'category_name' => 'events',
@@ -50,7 +50,7 @@ function find_event_posts (int $numberposts = 8) {
     'orderby' => 'meta_value',
     'meta_query' => [[
       'key' => 'event_date',
-      'value' => $now,
+      'value' => $now->format('Y-m-d H:i:s'),
       'type' => 'DATETIME',
       'compare' => '>='
     ]]
